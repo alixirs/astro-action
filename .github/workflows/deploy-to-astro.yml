@@ -8,13 +8,24 @@ on:
 env:
   ## Set Astro API Token as an environment variable
   ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
+  ACTIONS_STEP_DEBUG: true
+  ACTIONS_RUNNER_DEBUG: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Astro
-        uses: astronomer/deploy-action@v0.11.0
-        with:
-          deployment-id: cmixd2cgs2jzk01nd2rhs4xe5
-          parse: true
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Astro CLI with debugging
+        shell: bash -x {0}
+        run: |
+          set -x
+          curl -sSL install.astronomer.io | bash -x
+
+      - name: Deploy to Astro with debugging
+        shell: bash -x {0}
+        run: |
+          set -x
+          astro deploy cmixd2cgs2jzk01nd2rhs4xe5 --parse
