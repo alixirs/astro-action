@@ -18,11 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Astro CLI with debugging
-        shell: bash -x {0}
+      - name: Install Astro CLI with debugging (sudo)
+        shell: bash {0}
         run: |
-          set -x
-          curl -sSL install.astronomer.io | bash -x
+          set -euxo pipefail
+          curl -sSL install.astronomer.io | sudo bash -x
+          astro version
 
       - name: Deploy to Astro with debugging
         shell: bash -x {0}
