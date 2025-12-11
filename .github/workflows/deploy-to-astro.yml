@@ -30,8 +30,7 @@ jobs:
           sudo bash -x /tmp/astro-godownloader.sh -b /usr/local/bin
           astro version
 
-      - name: Deploy to Astro with debugging
-        shell: bash -x {0}
+      - name: Deploy to Astro
+        shell: bash {0}
         run: |
-          set -x
           astro deploy cmixd2cgs2jzk01nd2rhs4xe5 --parse
