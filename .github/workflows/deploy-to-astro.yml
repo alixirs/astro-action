@@ -18,11 +18,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Astro CLI with debugging (sudo)
+      - name: Install Astro CLI with deep tracing (sudo, no pipes)
         shell: bash {0}
         run: |
-          set -euxo pipefail
-          curl -sSL install.astronomer.io | sudo bash -x
+          set -euo pipefail
+          PS4='+ (${BASH_SOURCE}:${LINENO}) '
+          DOWNLOADER="https://raw.githubusercontent.com/astronomer/astro-cli/main/godownloader.sh"
+          curl -fsSL "$DOWNLOADER" -o /tmp/astro-godownloader.sh
+          # Show the first lines so we know what script we're executing
+          sed -n '1,200p' /tmp/astro-godownloader.sh
+          sudo bash -x /tmp/astro-godownloader.sh -b /usr/local/bin
           astro version
 
       - name: Deploy to Astro with debugging
