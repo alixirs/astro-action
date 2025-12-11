@@ -1,0 +1,20 @@
+name: Astronomer CI - Deploy code
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ## Set Astro API Token as an environment variable
+  ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Astro
+        uses: astronomer/deploy-action@v0.11.0
+        with:
+          deployment-id: cmixd2cgs2jzk01nd2rhs4xe5
+          parse: true
