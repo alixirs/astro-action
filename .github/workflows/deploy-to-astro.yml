@@ -33,7 +33,7 @@ jobs:
           echo "$BIN" >> "$GITHUB_PATH"
           astro version
 
-      - name: Deploy to Astro
-        shell: bash {0}
-        run: |
-          astro deploy cmixd2cgs2jzk01nd2rhs4xe5 --parse
+#      - name: Deploy to Astro
+#        shell: bash {0}
+#        run: |
+#          astro deploy cmixd2cgs2jzk01nd2rhs4xe5 --parse
